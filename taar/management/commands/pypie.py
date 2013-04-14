@@ -2,6 +2,7 @@ from django.core.management.base import BaseCommand, CommandError
 import feedparser
 from ghanti.models import Maal
 
+# commandline diagnostic for parsing of a feed
 class Command(BaseCommand):
     args = 'xml_file_name'
     help = 'parses the feeds received from hub'

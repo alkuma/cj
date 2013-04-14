@@ -1,3 +1,18 @@
+# This file is part of Chitthajagat.
+#
+# Chitthajagat is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+# 
+# Chitthajagat is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with Chitthajagat.  If not, see <http://www.gnu.org/licenses/>.
+
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 import requests, sys
@@ -8,6 +23,7 @@ import feedparser
 
 logger = logging.getLogger(__name__)
 
+# add a chittha
 @csrf_exempt
 def jod(request):
     try:
@@ -36,6 +52,7 @@ def jod(request):
         return HttpResponse(status = 400, content = sys.exc_info())
     return HttpResponse(status = 200, content = 200)
 
+# remove a chittha
 @csrf_exempt
 def tod(request):
     try:
@@ -56,12 +73,14 @@ def tod(request):
         return HttpResponse(status = 400, content = sys.exc_info())
     return HttpResponse(status = 200, content = 200)
 
+# check for existence of a chittha
 def hai(xml):
     exists = Chittha.objects.filter(xml_url__exact=xml).count()
     if exists == 0:
         return False
     return True
 
+# confirm a subscription and recieve chittha updates
 @csrf_exempt
 def maal(request):
     if (request.method == 'GET' and
@@ -76,6 +95,7 @@ def maal(request):
         return HttpResponse(status=200)
     return HttpResponse(status=403)
 
+# parse the xml sent by PubSubHubBub
 def feedparse(x):
     f=feedparser.parse(x)
     #lekh shirshak 
