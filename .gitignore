@@ -1,6 +1,44 @@
-*.pyc
+*.py[cod]
+
+#C extensions
+*.so
+
+#packages
+*.egg
+*.egg-info
+dist
+build
+eggs
+parts
+bin
+var
+sdist
+develop-eggs
+.installed.cfg
+lib
+lib64
+
+# installer logs
+pip-log.txt
+
+# unit test / coverage reprots
+.coverage
+.tox
+nosetests.xml
+
+# translations
+*.mo
+
+# Mr Developer
+.mr.developer.cfg
+.project
+.pydevproject
+
+# django specific
 settings.py
 *.json
+
+# editor related
 *~
 DEADJOE
 media/temp

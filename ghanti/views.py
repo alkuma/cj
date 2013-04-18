@@ -17,7 +17,7 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 import requests, sys
 from django.conf import settings
-from ghanti.models import Chittha, Maal
+from ghanti.models import Chittha, Maal, Lekh
 import logging
 import feedparser
 
@@ -99,17 +99,18 @@ def maal(request):
 def feedparse(x):
     f=feedparser.parse(x)
     #lekh shirshak 
+    # check if field exists before using each one
+    # 
     for i in f.feed.links[:]:
         if i['href'] == 'text/html' and i['rel'] == 'alternate':
-            lekh.chittha_url = i['href']    
-    lekh.chittha_shirshak = f.feed.title
-    lekh.chittha.lekhak = f.feed.author
-    lekh.chittha.chippi = f.feed.tags
+            chittha_url = i['href']    
+    chittha_shirshak = f.feed.title
+    chittha_lekhak = f.feed.author
+    chittha_chippi = f.feed.tags
     for e in f.entries[:]:
+        lekh = Lekh()
         lekh.shirshak = e.title
-        lekh.lekh = e.content
+        lekh.lekh = e.summary
+        lekh.kab_chhapa = e.published
         lekh.kab_badla = e.updated
-        lekh.chippi = e.tags
         lekh.url = e.feedburner_origlink #what if no feedburner?
-        lekh.summary = e.summary
-        lekh.content = e.content

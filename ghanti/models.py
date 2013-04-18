@@ -34,3 +34,15 @@ class Maal(models.Model):
 
     def __unicode__(self):
         return self.xml
+
+# parsed Maal == lekh
+class Lekh(models.Model):
+    chittha_html_url = models.CharField(max_length=2000)
+    shirshak = models.CharField(max_length = 4*80)
+    lekh = models.TextField()
+    kab_chhapa = models.DateTimeField()
+    kab_badla = models.DateTimeField()
+    url = models.CharField(max_length = 2000)
+
+    def __unicode__(self):
+        return self.url
